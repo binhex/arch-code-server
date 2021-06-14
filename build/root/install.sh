@@ -46,7 +46,7 @@ fi
 ####
 
 # define aur packages
-aur_packages="code-server powershell"
+aur_packages="code-server"
 
 # call aur install script (arch user repo)
 source aur.sh
