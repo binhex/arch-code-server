@@ -39,7 +39,7 @@ pacman_packages="git python2 python python-pip"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
-	pacman -S --needed "${pacman_packages}" --noconfirm
+	pacman -S --needed ${pacman_packages} --noconfirm
 fi
 
 # aur packages
