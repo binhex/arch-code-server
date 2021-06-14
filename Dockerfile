@@ -11,7 +11,7 @@ ADD build/*.conf /etc/supervisor/conf.d/
 ADD build/root/*.sh /root/
 
 # add bash script to run deluge
-ADD run/nobody/*.sh /home/nobody/
+ADD run/nobody/*.sh /usr/local/bin/
 
 # install app
 #############
