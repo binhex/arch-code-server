@@ -139,5 +139,18 @@ sed -i '/# ENVVARS_PLACEHOLDER/{
 }' /usr/local/bin/init.sh
 rm /tmp/envvars_heredoc
 
+cat <<'EOF' > /tmp/config_heredoc
+
+symlink_home_dir "code-server"
+
+EOF
+
+# replace config placeholder string with contents of file (here doc)
+sed -i '/# CONFIG_PLACEHOLDER/{
+    s/# CONFIG_PLACEHOLDER//g
+    r /tmp/config_heredoc
+}' /usr/local/bin/init.sh
+rm /tmp/config_heredoc
+
 # cleanup
 cleanup.sh
