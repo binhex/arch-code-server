@@ -18,7 +18,7 @@ mv /tmp/scripts-master/shell/arch/docker/*.sh /usr/local/bin/
 # detect image arch
 ####
 
-OS_ARCH=$(cat /etc/os-release | grep -P -o -m 1 "(?=^ID\=).*" | grep -P -o -m 1 "[a-z]+$")
+OS_ARCH=$(grep -P -o -m 1 "(?=^ID\=).*" < '/etc/os-release' | grep -P -o -m 1 "[a-z]+$")
 if [[ ! -z "${OS_ARCH}" ]]; then
 	if [[ "${OS_ARCH}" == "arch" ]]; then
 		OS_ARCH="x86-64"
@@ -39,14 +39,14 @@ pacman_packages="git python2 python python-pip"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
-	pacman -S --needed $pacman_packages --noconfirm
+	pacman -S --needed "${pacman_packages}" --noconfirm
 fi
 
 # aur packages
 ####
 
 # define aur packages
-aur_packages="code-server"
+aur_packages="code-server powershell"
 
 # call aur install script (arch user repo)
 source aur.sh
@@ -54,7 +54,7 @@ source aur.sh
 # container perms
 ####
 
-# define comma separated list of paths 
+# define comma separated list of paths
 install_paths="/home/nobody"
 
 # split comma separated string into list for install paths
@@ -74,7 +74,7 @@ done
 install_paths=$(echo "${install_paths}" | tr ',' ' ')
 
 # set permissions for container during build - Do NOT double quote variable for install_paths otherwise this will wrap space separated paths as a single string
-chmod -R 775 ${install_paths}
+chmod -R 775 "${install_paths}"
 
 # create file with contents of here doc, note EOF is NOT quoted to allow us to expand current variable 'install_paths'
 # we use escaping to prevent variable expansion for PUID and PGID, as we want these expanded at runtime of init.sh
@@ -84,7 +84,7 @@ cat <<EOF > /tmp/permissions_heredoc
 previous_puid=\$(cat "/root/puid" 2>/dev/null || true)
 previous_pgid=\$(cat "/root/pgid" 2>/dev/null || true)
 
-# if first run (no puid or pgid files in /tmp) or the PUID or PGID env vars are different 
+# if first run (no puid or pgid files in /tmp) or the PUID or PGID env vars are different
 # from the previous run then re-apply chown with current PUID and PGID values.
 if [[ ! -f "/root/puid" || ! -f "/root/pgid" || "\${previous_puid}" != "\${PUID}" || "\${previous_pgid}" != "\${PGID}" ]]; then
 
