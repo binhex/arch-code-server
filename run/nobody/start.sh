@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# switch marketplace to microsoft (used to install extensions)
+export SERVICE_URL=https://marketplace.visualstudio.com/_apis/public/gallery
+export CACHE_URL=https://vscode.blob.core.windows.net/gallery/index
+export ITEM_URL=https://marketplace.visualstudio.com/items
+
 # /usr/bin/code-server = run code-server in foreground (blocking)
 # --disable-telemetry = disable telemetry
 # --disable-update-check = disable updates
