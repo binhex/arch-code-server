@@ -141,7 +141,8 @@ rm /tmp/envvars_heredoc
 
 cat <<'EOF' > /tmp/config_heredoc
 
-symlink_home_dir "code-server"
+# call symlink function from utils.sh
+symlink --src-path '/home/nobody' --dst-path '/config/code-server/home' --link-type 'softlink' --debug 'yes'
 
 EOF
 
