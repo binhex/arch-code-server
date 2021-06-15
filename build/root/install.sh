@@ -55,7 +55,8 @@ source aur.sh
 ####
 
 # replace nasty web icon with ms version
-cp -f '/home/nobody/favicon.ico' '/usr/lib/code-server/src/browser/media/'
+cp -f '/home/nobody/favicon'* '/usr/lib/code-server/src/browser/media/'
+cp -f '/usr/lib/code-server/src/browser/media/favicon.svg' '/usr/lib/code-server/src/browser/media/favicon-dark-support.svg'
 
 # container perms
 ####
