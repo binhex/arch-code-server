@@ -51,6 +51,12 @@ aur_packages="code-server"
 # call aur install script (arch user repo)
 source aur.sh
 
+# custom
+####
+
+# replace nasty web icon with ms version
+cp -f '/home/nobody/favicon.ico' '/usr/lib/code-server/src/browser/media/'
+
 # container perms
 ####
 
