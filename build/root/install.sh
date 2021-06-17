@@ -149,7 +149,7 @@ rm /tmp/envvars_heredoc
 cat <<'EOF' > /tmp/config_heredoc
 
 # call symlink function from utils.sh
-symlink --src-path '/home/nobody' --dst-path '/config/home' --link-type 'softlink' --debug 'yes'
+symlink --src-path '/home/nobody' --dst-path '/config/home' --link-type 'softlink' --log-level 'WARN'
 
 EOF
 
