@@ -59,7 +59,7 @@ docker run -d \
 ```
 
 **Notes**<br><br>
-If both ```CERT_PATH``` and ```CERT_PARTH_KEY``` specified then it takes precedence over values set for ```SELF_SIGNED_CERT``` and ```BIND_CLOUD_NAME```, else ```SELF_SIGNED_CERT``` takes precedence over ```BIND_CLOUD_NAME```
+If both ```CERT_PATH``` and ```CERT_PATH_KEY``` specified then it takes precedence over values set for ```SELF_SIGNED_CERT``` and ```BIND_CLOUD_NAME```, else ```SELF_SIGNED_CERT``` takes precedence over ```BIND_CLOUD_NAME```
 
 If you set ```BIND_CLOUD_NAME``` then check the log ```/cnfig/supervisord.log``` for URL to authorise CBR with GitHub.
 
