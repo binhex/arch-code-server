@@ -15,11 +15,15 @@ Latest GitHub master branch of code-server from Arch Linux AUR.
 **Usage**
 ```
 docker run -d \
-    -p 8500:8500 \ 
+    -p 8500:8500 \
     --name=<container name> \
     -v <path for data files>:/data \
     -v <path for config files>:/config \
     -v /etc/localtime:/etc/localtime:ro \
+    -e CERT_PATH=<filepath to cert> \
+    -e CERT_KEY_PATH=<filepath to cert key> \
+    -e SELF_SIGNED_CERT=yes|no \
+    -e BIND_CLOUD_NAME=<name> \
     -e PASSWORD=<password for web ui> \
     -e UMASK=<umask for created files> \
     -e PUID=<uid for user> \
@@ -43,6 +47,10 @@ docker run -d \
     -v ~/github/source:/data \
     -v ~/docker/code-server:/config \
     -v /etc/localtime:/etc/localtime:ro \
+    -e CERT_PATH='/config/code-server/certs/mycert.crt' \
+    -e CERT_KEY_PATH='/config/code-server/certs/mycert.key' \
+    -e SELF_SIGNED_CERT=no \
+    -e BIND_CLOUD_NAME='' \
     -e PASSWORD=code-server \
     -e UMASK=000 \
     -e PUID=0 \
@@ -51,6 +59,9 @@ docker run -d \
 ```
 
 **Notes**
+If both ```CERT_PATH``` and ```CERT_PARTH_KEY``` specified then it takes precedence over values set for ```SELF_SIGNED_CERT``` and ```BIND_CLOUD_NAME```, else ```SELF_SIGNED_CERT``` takes precedence over ```BIND_CLOUD_NAME```
+
+If you set ```BIND_CLOUD_NAME``` then check the log ```/cnfig/supervisord.log``` for URL to authorise CBR with GitHub.
 
 User ID (PUID) and Group ID (PGID) can be found by issuing the following command for the user you want to run the container as:-
 
