@@ -6,7 +6,7 @@ export CACHE_URL=https://vscode.blob.core.windows.net/gallery/index
 export ITEM_URL=https://marketplace.visualstudio.com/items
 
 # create folders to store workspace and certs
-mkdir -p /config/code-server/workspace/ /config/code-server/certs/
+mkdir -p '/config/code-server/workspace/' '/config/code-server/certs/'
 
 # /usr/bin/code-server = run code-server in foreground (blocking)
 # --disable-telemetry = disable telemetry
