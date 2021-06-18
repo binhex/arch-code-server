@@ -11,7 +11,7 @@ mkdir -p '/config/code-server/workspace/' '/config/code-server/certs/'
 # read in ev vars to define cert configuration
 if [[ -n "${BIND_CLOUD_NAME}" ]]; then
 
-    link="--link '${BIND_CLOUD_NAME}'"
+    link="--link ${BIND_CLOUD_NAME}"
     cert=""
     cert_key=""
 
