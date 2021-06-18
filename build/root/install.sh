@@ -137,6 +137,38 @@ else
 	export PASSWORD="$(cat ${WEBUI_PASS_file})"
 fi
 
+export CERT_PATH=$(echo "${CERT_PATH}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
+if [[ ! -z "${CERT_PATH}" ]]; then
+	echo "[info] CERT_PATH defined as '${CERT_PATH}'" | ts '%Y-%m-%d %H:%M:%.S'
+else
+	echo "[info] CERT_PATH not defined,(via -e CERT_PATH)" | ts '%Y-%m-%d %H:%M:%.S'
+	export CERT_PATH=""
+fi
+
+export CERT_KEY_PATH=$(echo "${CERT_KEY_PATH}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
+if [[ ! -z "${CERT_KEY_PATH}" ]]; then
+	echo "[info] CERT_KEY_PATH defined as '${CERT_KEY_PATH}'" | ts '%Y-%m-%d %H:%M:%.S'
+else
+	echo "[info] CERT_KEY_PATH not defined,(via -e CERT_KEY_PATH)" | ts '%Y-%m-%d %H:%M:%.S'
+	export CERT_KEY_PATH=""
+fi
+
+export SELF_SIGNED_CERT=$(echo "${SELF_SIGNED_CERT}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
+if [[ ! -z "${SELF_SIGNED_CERT}" ]]; then
+	echo "[info] SELF_SIGNED_CERT defined as '${SELF_SIGNED_CERT}'" | ts '%Y-%m-%d %H:%M:%.S'
+else
+	echo "[info] SELF_SIGNED_CERT not defined,(via -e SELF_SIGNED_CERT), defaulting to 'yes'" | ts '%Y-%m-%d %H:%M:%.S'
+	export SELF_SIGNED_CERT="yes"
+fi
+
+export BIND_CLOUD_NAME=$(echo "${BIND_CLOUD_NAME}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
+if [[ ! -z "${BIND_CLOUD_NAME}" ]]; then
+	echo "[info] BIND_CLOUD_NAME defined as '${BIND_CLOUD_NAME}'" | ts '%Y-%m-%d %H:%M:%.S'
+else
+	echo "[info] BIND_CLOUD_NAME not defined,(via -e BIND_CLOUD_NAME)" | ts '%Y-%m-%d %H:%M:%.S'
+	export BIND_CLOUD_NAME=""
+fi
+
 EOF
 
 # replace env vars placeholder string with contents of file (here doc)
