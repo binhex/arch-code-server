@@ -183,6 +183,20 @@ cat <<'EOF' > /tmp/config_heredoc
 # call symlink function from utils.sh
 symlink --src-path '/home/nobody' --dst-path '/config/home' --link-type 'softlink' --log-level 'WARN'
 
+# define path to scripts
+script_path='/config/code-server/scripts'
+
+# mkdir and change owner
+mkdir -p "${script_path}" && chown -R nobody:users "${script_path}"
+
+# find any scripts located in "${script_path}"
+scripts=$(find "${script_path}" -maxdepth 1 -name '*sh' 2> /dev/null | xargs)
+
+# loop over scripts, make executable and source
+for i in ${scripts}; do
+	chmod +x "${i}"
+	source "${i}"
+done
 EOF
 
 # replace config placeholder string with contents of file (here doc)
