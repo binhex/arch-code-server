@@ -35,7 +35,7 @@ fi
 ####
 
 # define pacman packages
-pacman_packages="git python2 python python-pip"
+pacman_packages="git python2 python python-pipcd /va"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
@@ -184,18 +184,20 @@ cat <<'EOF' > /tmp/config_heredoc
 symlink --src-path '/home/nobody' --dst-path '/config/home' --link-type 'softlink' --log-level 'WARN'
 
 # define path to scripts
-script_path='/config/code-server/scripts'
+user_script_path='/config/code-server/scripts'
 
 # mkdir and change owner
-mkdir -p "${script_path}" && chown -R nobody:users "${script_path}"
+mkdir -p "${user_script_path}" && chown -R nobody:users "${user_script_path}"
 
-# find any scripts located in "${script_path}"
-scripts=$(find "${script_path}" -maxdepth 1 -name '*sh' 2> /dev/null | xargs)
+# find any scripts located in "${user_script_path}"
+user_scripts=$(find "${user_script_path}" -maxdepth 1 -name '*sh' 2> '/dev/null' | xargs)
 
 # loop over scripts, make executable and source
-for i in ${scripts}; do
+for i in ${user_scripts}; do
 	chmod +x "${i}"
+	echo "[info] Executing user script '${i}'..." | ts '%Y-%m-%d %H:%M:%.S'
 	source "${i}"
+	echo "[info] User script finished" | ts '%Y-%m-%d %H:%M:%.S'
 done
 EOF
 
