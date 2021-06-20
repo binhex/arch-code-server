@@ -35,7 +35,7 @@ fi
 ####
 
 # define pacman packages
-pacman_packages="git python2 python python-pipcd /va"
+pacman_packages="git python2 python python-pip"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
