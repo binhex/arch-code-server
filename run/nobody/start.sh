@@ -5,6 +5,9 @@ export SERVICE_URL=https://marketplace.visualstudio.com/_apis/public/gallery
 export CACHE_URL=https://vscode.blob.core.windows.net/gallery/index
 export ITEM_URL=https://marketplace.visualstudio.com/items
 
+# this allows git to access docker bind mounts
+export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+
 # create folders to store workspace and certs
 mkdir -p '/config/code-server/workspace/' '/config/code-server/certs/'
 
