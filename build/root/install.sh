@@ -130,7 +130,7 @@ else
 	if [ ! -f "${WEBUI_PASS_file}" ]; then
 		# generate random password for web ui using SHA to hash the date,
 		# run through base64, and then output the top 16 characters to a file.
-		mkdir -p "/config/code-server/security" ; chown -R "\${PUID}":"\${PGID}" "/config/code-server"
+		mkdir -p "/config/code-server/security" ; chown -R nobody:users "/config/code-server"
 		date +%s | sha256sum | base64 | head -c 16 > "${WEBUI_PASS_file}"
 	fi
 	echo "[warn] PASSWORD not defined (via -e PASSWORD), using randomised password (password stored in '${WEBUI_PASS_file}')" | ts '%Y-%m-%d %H:%M:%.S'
@@ -187,7 +187,7 @@ symlink --src-path '/home/nobody' --dst-path '/config/home' --link-type 'softlin
 user_script_path='/config/code-server/scripts'
 
 # mkdir and change owner
-mkdir -p "${user_script_path}" && chown -R "\${PUID}":"\${PGID}" "${user_script_path}"
+mkdir -p "${user_script_path}" && chown -R nobody:users "${user_script_path}"
 
 # find any scripts located in "${user_script_path}"
 user_scripts=$(find "${user_script_path}" -maxdepth 1 -name '*sh' 2> '/dev/null' | xargs)
@@ -195,10 +195,10 @@ user_scripts=$(find "${user_script_path}" -maxdepth 1 -name '*sh' 2> '/dev/null'
 # loop over scripts, make executable and source
 for i in ${user_scripts}; do
 	chmod +x "${i}"
-	echo "[info] Executing user script '${i}' in the background..." | ts '%Y-%m-%d %H:%M:%.S'
-	source "${i}" &
+	echo "[info] Executing user script '${i}'..." | ts '%Y-%m-%d %H:%M:%.S'
+	source "${i}"
+	echo "[info] User script finished" | ts '%Y-%m-%d %H:%M:%.S'
 done
-
 EOF
 
 # replace config placeholder string with contents of file (here doc)
