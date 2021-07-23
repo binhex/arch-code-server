@@ -173,7 +173,7 @@ export ENABLE_STARTUP_SCRIPTS=$(echo "${ENABLE_STARTUP_SCRIPTS}" | sed -e 's~^[ 
 if [[ ! -z "${ENABLE_STARTUP_SCRIPTS}" ]]; then
 	echo "[info] ENABLE_STARTUP_SCRIPTS defined as '${ENABLE_STARTUP_SCRIPTS}'" | ts '%Y-%m-%d %H:%M:%.S'
 else
-	echo "[info] ENABLE_STARTUP_SCRIPTS not defined,(via -e ENABLE_STARTUP_SCRIPTS)", defaulting to 'no' | ts '%Y-%m-%d %H:%M:%.S'
+	echo "[info] ENABLE_STARTUP_SCRIPTS not defined,(via -e ENABLE_STARTUP_SCRIPTS), defaulting to 'no'" | ts '%Y-%m-%d %H:%M:%.S'
 	export ENABLE_STARTUP_SCRIPTS="no"
 fi
 
