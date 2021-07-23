@@ -169,6 +169,14 @@ else
 	export BIND_CLOUD_NAME=""
 fi
 
+export ENABLE_STARTUP_SCRIPTS=$(echo "${ENABLE_STARTUP_SCRIPTS}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
+if [[ ! -z "${ENABLE_STARTUP_SCRIPTS}" ]]; then
+	echo "[info] ENABLE_STARTUP_SCRIPTS defined as '${ENABLE_STARTUP_SCRIPTS}'" | ts '%Y-%m-%d %H:%M:%.S'
+else
+	echo "[info] ENABLE_STARTUP_SCRIPTS not defined,(via -e ENABLE_STARTUP_SCRIPTS)", defaulting to 'no' | ts '%Y-%m-%d %H:%M:%.S'
+	export ENABLE_STARTUP_SCRIPTS="no"
+fi
+
 EOF
 
 # replace env vars placeholder string with contents of file (here doc)
@@ -180,26 +188,30 @@ rm /tmp/envvars_heredoc
 
 cat <<'EOF' > /tmp/config_heredoc
 
-# define path to scripts
-user_script_path='/config/code-server/scripts'
+if [[ "${ENABLE_STARTUP_SCRIPTS} == "yes" ]]; then
 
-mkdir -p "${user_script_path}"
+	# define path to scripts
+	user_script_path='/config/code-server/scripts'
 
-# copy example startup script
-cp '/home/nobody/scripts/'*.sh "${user_script_path}/"
+	mkdir -p "${user_script_path}"
 
-# find any scripts located in "${user_script_path}"
-user_scripts=$(find "${user_script_path}" -maxdepth 1 -name '*sh' 2> '/dev/null' | xargs)
+	# copy example startup script
+	cp '/home/nobody/scripts/'*.sh "${user_script_path}/"
 
-# loop over scripts, make executable and source
-for i in ${user_scripts}; do
-	chmod +x "${i}"
-	echo "[info] Executing user script '${i}' in the background" | ts '%Y-%m-%d %H:%M:%.S'
-	source "${i}" &
-done
+	# find any scripts located in "${user_script_path}"
+	user_scripts=$(find "${user_script_path}" -maxdepth 1 -name '*sh' 2> '/dev/null' | xargs)
 
-# change ownership as we are running as root
-chown -R nobody:users "${user_script_path}"
+	# loop over scripts, make executable and source
+	for i in ${user_scripts}; do
+		chmod +x "${i}"
+		echo "[info] Executing user script '${i}' in the background" | ts '%Y-%m-%d %H:%M:%.S'
+		source "${i}" &
+	done
+
+	# change ownership as we are running as root
+	chown -R nobody:users "${user_script_path}"
+
+fi
 
 # call symlink function from utils.sh
 symlink --src-path '/home/nobody' --dst-path '/config/home' --link-type 'softlink' --log-level 'WARN'
