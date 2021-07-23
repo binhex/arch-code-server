@@ -55,7 +55,7 @@ source aur.sh
 ####
 
 # replace nasty web icon with ms version
-cp -f '/home/nobody/favicon'* '/usr/lib/code-server/src/browser/media/'
+cp -f '/home/nobody/icons/favicon'* '/usr/lib/code-server/src/browser/media/'
 cp -f '/usr/lib/code-server/src/browser/media/favicon.svg' '/usr/lib/code-server/src/browser/media/favicon-dark-support.svg'
 
 # container perms
@@ -180,14 +180,13 @@ rm /tmp/envvars_heredoc
 
 cat <<'EOF' > /tmp/config_heredoc
 
-# call symlink function from utils.sh
-symlink --src-path '/home/nobody' --dst-path '/config/home' --link-type 'softlink' --log-level 'WARN'
-
 # define path to scripts
 user_script_path='/config/code-server/scripts'
 
-# mkdir and change owner
-mkdir -p "${user_script_path}" && chown -R nobody:users "${user_script_path}"
+mkdir -p "${user_script_path}"
+
+# copy example startup script
+cp '/home/nobody/scripts/'*.sh "${user_script_path}/"
 
 # find any scripts located in "${user_script_path}"
 user_scripts=$(find "${user_script_path}" -maxdepth 1 -name '*sh' 2> '/dev/null' | xargs)
@@ -198,6 +197,12 @@ for i in ${user_scripts}; do
 	echo "[info] Executing user script '${i}' in the background" | ts '%Y-%m-%d %H:%M:%.S'
 	source "${i}" &
 done
+
+# change ownership as we are running as root
+chown -R nobody:users "${user_script_path}"
+
+# call symlink function from utils.sh
+symlink --src-path '/home/nobody' --dst-path '/config/home' --link-type 'softlink' --log-level 'WARN'
 EOF
 
 # replace config placeholder string with contents of file (here doc)
