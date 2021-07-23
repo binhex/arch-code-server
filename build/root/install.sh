@@ -202,7 +202,7 @@ if [[ "${ENABLE_STARTUP_SCRIPTS}" == "yes" ]]; then
 	user_scripts=$(find "${user_script_path}" -maxdepth 1 -name '*sh' 2> '/dev/null' | xargs)
 
 	# loop over scripts, make executable and source
-	for i in "${user_scripts}"; do
+	for i in ${user_scripts}; do
 		chmod +x "${i}"
 		echo "[info] Executing user script '${i}' in the background" | ts '%Y-%m-%d %H:%M:%.S'
 		source "${i}" &
