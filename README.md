@@ -25,7 +25,7 @@ docker run -d \
     -e SELF_SIGNED_CERT=yes|no \
     -e BIND_CLOUD_NAME=<name> \
     -e PASSWORD=<password for web ui> \
-	-e ENABLE_STARTUP_SCRIPTS=yes|no \
+    -e ENABLE_STARTUP_SCRIPTS=yes|no \
     -e UMASK=<umask for created files> \
     -e PUID=<uid for user> \
     -e PGID=<gid for user> \
@@ -53,7 +53,7 @@ docker run -d \
     -e SELF_SIGNED_CERT=no \
     -e BIND_CLOUD_NAME='' \
     -e PASSWORD=code-server \
-	-e ENABLE_STARTUP_SCRIPTS=yes \
+    -e ENABLE_STARTUP_SCRIPTS=yes \
     -e UMASK=000 \
     -e PUID=0 \
     -e PGID=0 \
