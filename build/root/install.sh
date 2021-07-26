@@ -12,8 +12,9 @@ curl --connect-timeout 5 --max-time 600 --retry 5 --retry-delay 0 --retry-max-ti
 # unzip build scripts
 unzip /tmp/scripts-master.zip -d /tmp
 
-# move shell scripts to /root
-mv /tmp/scripts-master/shell/arch/docker/*.sh /usr/local/bin/
+# move shell scripts to /usr/local/bin (-n = do not overwrite
+# exsting files, required as init.sh written to via arch-int-gui)
+mv -n /tmp/scripts-master/shell/arch/docker/*.sh /usr/local/bin/
 
 # detect image arch
 ####
