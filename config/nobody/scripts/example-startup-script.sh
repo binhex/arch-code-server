@@ -7,6 +7,7 @@
 
 # Define AOR (Arch Official Repository) packages you want to install at startup.
 # Go to the following URL for a list of available packages:- https://archlinux.org/packages/
+#
 # If you want to install more than one package then please user a space as a separator.
 # Example: To install docker and Java Runtime 11 you would specify:-
 # pacman_packages="jre11-openjdk-headless"
@@ -22,6 +23,7 @@ fi
 
 # Define AUR (Arch User Repository) packages you want to install at startup.
 # Go to the following URL for a list of available packages:- https://aur.archlinux.org/packages/
+#
 # If you want to install more than one package then please user a space as a separator.
 # Example: To install docker and Java Runtime 11 you would specify:-
 # aur_packages="powershell"
