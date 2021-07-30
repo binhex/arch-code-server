@@ -23,8 +23,8 @@ else
     link=""
     if [[ -n "${CERT_PATH}" && -n "${CERT_KEY_PATH}" ]]; then
 
-        cert="--cert '${CERT_PATH}'"
-        cert_key="--cert-key '${CERT_KEY_PATH}'"
+        cert="--cert ${CERT_PATH}"
+        cert_key="--cert-key ${CERT_KEY_PATH}"
 
     elif [[ "${SELF_SIGNED_CERT}" == "yes" ]]; then
 
