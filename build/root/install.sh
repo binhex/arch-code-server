@@ -12,9 +12,8 @@ curl --connect-timeout 5 --max-time 600 --retry 5 --retry-delay 0 --retry-max-ti
 # unzip build scripts
 unzip /tmp/scripts-master.zip -d /tmp
 
-# move shell scripts to /usr/local/bin (-n = do not overwrite
-# exsting files, required as init.sh written to via arch-int-gui)
-mv -n /tmp/scripts-master/shell/arch/docker/*.sh /usr/local/bin/
+# move shell scripts to /root
+mv /tmp/scripts-master/shell/arch/docker/*.sh /usr/local/bin/
 
 # detect image arch
 ####
@@ -158,6 +157,9 @@ if [[ "${ENABLE_STARTUP_SCRIPTS}" == "yes" ]]; then
 	chown -R nobody:users "${user_script_path}"
 
 fi
+
+# call symlink function from utils.sh
+symlink --src-path '/home/nobody' --dst-path '/config/home' --link-type 'softlink' --log-level 'WARN'
 EOF
 
 # replace config placeholder string with contents of file (here doc)
