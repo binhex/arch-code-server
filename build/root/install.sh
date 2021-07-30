@@ -140,9 +140,6 @@ if [[ "${ENABLE_STARTUP_SCRIPTS}" == "yes" ]]; then
 
 	mkdir -p "${user_script_path}"
 
-	# copy example startup script
-	cp '/home/nobody/scripts/'*.sh "${user_script_path}/"
-
 	# find any scripts located in "${user_script_path}"
 	user_scripts=$(find "${user_script_path}" -maxdepth 1 -name '*sh' 2> '/dev/null' | xargs)
 
