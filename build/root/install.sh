@@ -140,6 +140,12 @@ if [[ "${ENABLE_STARTUP_SCRIPTS}" == "yes" ]]; then
 
 	mkdir -p "${user_script_path}"
 
+	# copy example startup script
+	# note slence stdout/stderr and ensure exit code 0 due to src file may not exist (symlink)
+	if [[ ! -f "${user_script_path}/example-startup-script.sh" ]]; then
+		cp "/home/nobody/example-startup-script.sh" "${user_script_path}/example-startup-script.sh" 2> /dev/null || true
+	fi
+
 	# find any scripts located in "${user_script_path}"
 	user_scripts=$(find "${user_script_path}" -maxdepth 1 -name '*sh' 2> '/dev/null' | xargs)
 
