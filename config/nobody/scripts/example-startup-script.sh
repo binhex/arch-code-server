@@ -9,8 +9,8 @@
 # Go to the following URL for a list of available packages:- https://archlinux.org/packages/
 #
 # If you want to install more than one package then please user a space as a separator.
-# Example: To install docker and Java Runtime 11 you would specify:-
-# pacman_packages="jre11-openjdk-headless"
+# Example: To install Docker and Java Runtime 11 you would specify:-
+# pacman_packages="docker jre11-openjdk-headless"
 pacman_packages=""
 
 # install compiled packages using pacman
@@ -25,7 +25,7 @@ fi
 # Go to the following URL for a list of available packages:- https://aur.archlinux.org/packages/
 #
 # If you want to install more than one package then please user a space as a separator.
-# Example: To install docker and Java Runtime 11 you would specify:-
+# Example: To install Powershell you would specify:-
 # aur_packages="powershell"
 aur_packages=""
 
