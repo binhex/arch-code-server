@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # switch marketplace to microsoft (used to install extensions)
-export SERVICE_URL=https://marketplace.visualstudio.com/_apis/public/gallery
-export CACHE_URL=https://vscode.blob.core.windows.net/gallery/index
-export ITEM_URL=https://marketplace.visualstudio.com/items
+# note this hack no longer works, open-vsx.org or side loading only
+#export SERVICE_URL=https://marketplace.visualstudio.com/_apis/public/gallery
+#export CACHE_URL=https://vscode.blob.core.windows.net/gallery/index
+#export ITEM_URL=https://marketplace.visualstudio.com/items
 
 # this allows git to access docker bind mounts
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
