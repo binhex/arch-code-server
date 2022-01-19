@@ -139,7 +139,8 @@ cat <<'EOF' > /tmp/config_heredoc
 if [[ "${ENABLE_STARTUP_SCRIPTS}" == "yes" ]]; then
 
 	# define path to scripts
-	user_script_path='/config/code-server/scripts'
+	base_path="/config/code-server"
+	user_script_path="${base_path}/scripts"
 
 	mkdir -p "${user_script_path}"
 
@@ -160,7 +161,7 @@ if [[ "${ENABLE_STARTUP_SCRIPTS}" == "yes" ]]; then
 	done
 
 	# change ownership as we are running as root
-	chown -R nobody:users "${user_script_path}"
+	chown -R nobody:users "${base_path}"
 
 fi
 
