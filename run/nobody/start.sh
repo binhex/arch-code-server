@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/dumb-init /bin/bash
 
 # switch marketplace to microsoft (used to install extensions)
 # note this hack no longer works, open-vsx.org or side loading only
