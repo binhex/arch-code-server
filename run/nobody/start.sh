@@ -6,6 +6,9 @@
 #export CACHE_URL=https://vscode.blob.core.windows.net/gallery/index
 #export ITEM_URL=https://marketplace.visualstudio.com/items
 
+# switch marketplace to microsoft (used to install extensions) using patch script from 'code-marketplace' aur package
+/usr/share/code-marketplace/patch.sh
+
 # this allows git to access docker bind mounts
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
