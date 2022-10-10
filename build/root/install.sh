@@ -38,7 +38,7 @@ fi
 ####
 
 # define pacman packages
-pacman_packages="git python2 python python-pip"
+pacman_packages="git python python-pip"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
@@ -60,6 +60,14 @@ source aur.sh
 # replace nasty web icon with ms version
 cp -f '/home/nobody/icons/favicon'* '/usr/lib/code-server/src/browser/media/'
 cp -f '/usr/lib/code-server/src/browser/media/favicon.svg' '/usr/lib/code-server/src/browser/media/favicon-dark-support.svg'
+
+package_name="python2.tar.zst"
+
+# download compiled python2 (removed from AOR)
+rcurl.sh -o "/tmp/${package_name}" "https://github.com/binhex/packages/raw/master/compiled/${OS_ARCH}/${package_name}"
+
+# install python2
+pacman -U "/tmp/${package_name}" --noconfirm
 
 # env vars
 ####
