@@ -210,7 +210,7 @@ done
 install_paths=$(echo "${install_paths}" | tr ',' ' ')
 
 # set permissions for container during build - Do NOT double quote variable for install_paths otherwise this will wrap space separated paths as a single string
-chmod -R 775 "${install_paths}"
+chmod -R 775 ${install_paths}
 
 # create file with contents of here doc, note EOF is NOT quoted to allow us to expand current variable 'install_paths'
 # we use escaping to prevent variable expansion for PUID and PGID, as we want these expanded at runtime of init.sh
