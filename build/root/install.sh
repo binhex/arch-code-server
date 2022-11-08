@@ -38,7 +38,7 @@ fi
 ####
 
 # define pacman packages
-pacman_packages="git python python-pip"
+pacman_packages="git python python-pip openssl-1.1"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
