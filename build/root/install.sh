@@ -188,7 +188,7 @@ rm /tmp/config_heredoc
 ####
 
 # define comma separated list of paths
-install_paths="/home/nobody"
+install_paths="/home/nobody,/usr/lib/code"
 
 # split comma separated string into list for install paths
 IFS=',' read -ra install_paths_list <<< "${install_paths}"
