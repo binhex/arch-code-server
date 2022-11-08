@@ -187,6 +187,9 @@ rm /tmp/config_heredoc
 # container perms
 ####
 
+# create path to store temporary files
+mkdir -p '/usr/lib/code'
+
 # define comma separated list of paths
 install_paths="/home/nobody,/usr/lib/code"
 
