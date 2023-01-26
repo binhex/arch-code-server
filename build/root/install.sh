@@ -113,8 +113,8 @@ export SELF_SIGNED_CERT=$(echo "${SELF_SIGNED_CERT}" | sed -e 's~^[ \t]*~~;s~[ \
 if [[ ! -z "${SELF_SIGNED_CERT}" ]]; then
 	echo "[info] SELF_SIGNED_CERT defined as '${SELF_SIGNED_CERT}'" | ts '%Y-%m-%d %H:%M:%.S'
 else
-	echo "[info] SELF_SIGNED_CERT not defined,(via -e SELF_SIGNED_CERT), defaulting to 'yes'" | ts '%Y-%m-%d %H:%M:%.S'
-	export SELF_SIGNED_CERT="yes"
+	echo "[info] SELF_SIGNED_CERT not defined,(via -e SELF_SIGNED_CERT), defaulting to 'no'" | ts '%Y-%m-%d %H:%M:%.S'
+	export SELF_SIGNED_CERT="no"
 fi
 
 export BIND_CLOUD_NAME=$(echo "${BIND_CLOUD_NAME}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
