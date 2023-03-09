@@ -49,7 +49,7 @@ fi
 ####
 
 # define aur packages
-aur_packages="code-server code-marketplace"
+aur_packages="code-server"
 
 # call aur install script (arch user repo)
 source aur.sh
@@ -191,7 +191,7 @@ rm /tmp/config_heredoc
 mkdir -p '/usr/lib/code'
 
 # define comma separated list of paths
-install_paths="/home/nobody,/usr/lib/code"
+install_paths="/home/nobody,/usr/lib/code,/usr/lib/code-server"
 
 # split comma separated string into list for install paths
 IFS=',' read -ra install_paths_list <<< "${install_paths}"

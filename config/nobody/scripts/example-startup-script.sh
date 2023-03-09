@@ -2,6 +2,9 @@
 
 # Example script showing how to install packages from AOR/AUR.
 
+# remove previous pacman lock file if it exists
+rm -f /var/lib/pacman/db.lck
+
 # aor packages
 ###
 

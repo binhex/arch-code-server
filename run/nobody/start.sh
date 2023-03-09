@@ -1,14 +1,5 @@
 #!/usr/bin/dumb-init /bin/bash
 
-# switch marketplace to microsoft (used to install extensions)
-# note this hack no longer works, open-vsx.org or side loading only
-#export SERVICE_URL=https://marketplace.visualstudio.com/_apis/public/gallery
-#export CACHE_URL=https://vscode.blob.core.windows.net/gallery/index
-#export ITEM_URL=https://marketplace.visualstudio.com/items
-
-# switch marketplace to microsoft (used to install extensions) using patch script from 'code-marketplace' aur package
-/usr/share/code-marketplace/patch.sh
-
 # this allows git to access docker bind mounts
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
@@ -39,6 +30,27 @@ else
 
         cert=""
         cert_key=""
+
+    fi
+
+fi
+
+# -v option means confirm env var keyname exists, does not confirm if value is empty or not
+if [[ -v 'ENABLE_MS_EXTENSIONS_GALLERY' ]]; then
+
+    vscode_product_filepath='/usr/lib/code-server/lib/vscode/product.json'
+    echo "[warn] Microsoft Extensions Gallery enabled via env var 'ENABLE_MS_EXTENSIONS_GALLERY', please ensure you are not violating any rules!."
+
+    if ! grep -q 'extensionsGallery' "${vscode_product_filepath}"; then
+
+        echo "[info] Microsoft Extensions Gallery not found, inserting into '${vscode_product_filepath}'..."
+
+sed -i 's~  "quality": "stable",~  "extensionsGallery": {\
+    "serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",\
+    "cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",\
+    "itemUrl": "https://marketplace.visualstudio.com/items"\
+  },\
+  "quality": "stable",~g' "${vscode_product_filepath}"
 
     fi
 
