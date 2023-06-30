@@ -2,10 +2,15 @@
 
 # Example script showing how to install packages from AOR/AUR.
 
+# IMPORTANT
+# This script adds in the ability to install addtional application the end user may want,
+# please do bear in mind every time the image is updated the container will be deleted
+# and reinstallation of all packages listed will occur.
+
 # remove previous pacman lock file if it exists
 rm -f /var/lib/pacman/db.lck
 
-# aor packages
+# AOR packages
 ###
 
 # Define AOR (Arch Official Repository) packages you want to install at startup.
@@ -21,8 +26,13 @@ if [[ ! -z "${pacman_packages}" ]]; then
 	pacman -S --needed ${pacman_packages} --noconfirm
 fi
 
-# aur packages
+# AUR packages
 ###
+
+# IMPORTANT
+# AUR packages will require compiling and thus time to install the application maybe
+# (depending on the applications complexity) considerable, plwease be patient and monitor
+# progress in the '/config/supervisord.log' file.
 
 # Define AUR (Arch User Repository) packages you want to install at startup.
 # Go to the following URL for a list of available packages:- https://aur.archlinux.org/packages/
