@@ -30,7 +30,7 @@ fi
 ###
 
 # IMPORTANT
-# AUR packages will require compiling and thus time to install the application maybe
+# AUR packages may require compiling and thus time to install the application maybe
 # (depending on the applications complexity) considerable, plwease be patient and monitor
 # progress in the '/config/supervisord.log' file.
 
