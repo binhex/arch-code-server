@@ -33,9 +33,6 @@ RUN chmod +x /root/*.sh && \
 # docker settings
 #################
 
-# expose port for https
-EXPOSE 8500
-
 # set permissions
 #################
 
