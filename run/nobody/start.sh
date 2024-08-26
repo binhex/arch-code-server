@@ -57,6 +57,8 @@ sed -i 's~  "quality": "stable",~  "extensionsGallery": {\
 fi
 
 # /usr/bin/code-server = run code-server in foreground (blocking)
+# --host 0.0.0.0 = set host to all ip's - see https://github.com/coder/code-server/issues/4443#issuecomment-2129423659
+# --trusted-origins=* = trust all origins - see https://github.com/coder/code-server/issues/4443#issuecomment-2129423659
 # --disable-telemetry = disable telemetry
 # --disable-update-check = disable updates
 # --bind-addr 0.0.0.0:8500 = bind to all ip's
@@ -66,4 +68,4 @@ fi
 # --config '/config/code-server/config/config.yml' = filepath to config file (contains password amongst other things)
 # --user-data-dir '/config/code-server/user-data' = define path to store user data
 # --extensions-dir '/config/code-server/extensions' = define path to store extensions
-/usr/bin/code-server --disable-telemetry --disable-update-check --bind-addr 0.0.0.0:8500 ${link} ${cert} ${cert_key} --config '/config/code-server/config/config.yml' --user-data-dir '/config/code-server/user-data' --extensions-dir '/config/code-server/extensions'
+/usr/bin/code-server --host 0.0.0.0 --trusted-origins=* --disable-telemetry --disable-update-check --bind-addr 0.0.0.0:8500 ${link} ${cert} ${cert_key} --config '/config/code-server/config/config.yml' --user-data-dir '/config/code-server/user-data' --extensions-dir '/config/code-server/extensions'
