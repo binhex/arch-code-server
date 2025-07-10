@@ -127,7 +127,7 @@ EOF
 sed -i '/# ENVVARS_PLACEHOLDER/{
     s/# ENVVARS_PLACEHOLDER//g
     r /tmp/envvars_heredoc
-}' /usr/local/bin/init.sh
+}' /usr/local/bin/shell/docker/init.sh
 rm /tmp/envvars_heredoc
 
 cat <<'EOF' > /tmp/config_heredoc
@@ -169,7 +169,7 @@ EOF
 sed -i '/# CONFIG_PLACEHOLDER/{
     s/# CONFIG_PLACEHOLDER//g
     r /tmp/config_heredoc
-}' /usr/local/bin/init.sh
+}' /usr/local/bin/shell/docker/init.sh
 rm /tmp/config_heredoc
 
 # container perms
@@ -227,7 +227,7 @@ EOF
 sed -i '/# PERMISSIONS_PLACEHOLDER/{
     s/# PERMISSIONS_PLACEHOLDER//g
     r /tmp/permissions_heredoc
-}' /usr/local/bin/init.sh
+}' /usr/local/bin/shell/docker/init.sh
 rm /tmp/permissions_heredoc
 
 # cleanup
