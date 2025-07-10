@@ -44,5 +44,5 @@ aur_packages=""
 
 # install compiled packages using helper 'yay'
 if [[ ! -z "${aur_packages}" ]]; then
-	source '/usr/local/bin/aur.sh'
+	source 'aur.sh'
 fi
