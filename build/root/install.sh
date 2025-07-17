@@ -29,7 +29,7 @@ refresh.sh
 ####
 
 # define pacman packages
-pacman_packages="git python python-pip openssl-1.1"
+pacman_packages="git python python-pip openssl-1.1 rsync"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
