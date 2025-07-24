@@ -34,6 +34,8 @@ docker run -d \
     -e BIND_CLOUD_NAME=<name> \
     -e PASSWORD=<password for web ui> \
     -e ENABLE_STARTUP_SCRIPTS=yes|no \
+    -e HEALTHCHECK_COMMAND=<command> \
+    -e HEALTHCHECK_ACTION=<action> \
     -e UMASK=<umask for created files> \
     -e PUID=<uid for user> \
     -e PGID=<gid for user> \
