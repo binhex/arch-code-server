@@ -180,7 +180,7 @@ if [[ "${ENABLE_STARTUP_SCRIPTS}" == "yes" ]]; then
 fi
 
 # call symlink function from utils.sh
-symlink --src-path '/home/nobody' --dst-path '/config/home' --link-type 'softlink'
+symlink --src-path '/config/home' --dst-path '/home/nobody' --link-type 'softlink'
 EOF
 
 # replace config placeholder string with contents of file (here doc)
