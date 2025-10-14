@@ -67,10 +67,17 @@ aur.sh --aur-package "${aur_packages}"
 cp -f '/home/nobody/icons/favicon'* '/usr/lib/code-server/src/browser/media/'
 cp -f '/usr/lib/code-server/src/browser/media/favicon.svg' '/usr/lib/code-server/src/browser/media/favicon-dark-support.svg'
 
-package_name="python2.tar.zst"
+# set package type extension depending on arch
+if [[ "${TARGETARCH}" == 'amd64' ]]; then
+	extension='zst'
+else
+	extension='xz'
+fi
+
+package_name="python2.tar.${extension}"
 
 # download compiled python2 (removed from AOR)
-rcurl.sh -o "/tmp/${package_name}" "https://github.com/binhex/packages/raw/refs/heads/master/compiled/${target_arch}/${package_name}"
+rcurl.sh -o "/tmp/${package_name}" "https://github.com/binhex/packages/raw/refs/heads/master/compiled/${TARGETARCH}/${package_name}"
 
 # install python2
 pacman -U "/tmp/${package_name}" --noconfirm
