@@ -40,7 +40,7 @@ refresh.sh
 ####
 
 # define pacman packages
-pacman_packages="git python python-pip rsync"
+pacman_packages="git python python-pip xclip rsync"
 
 # install compiled packages using pacman
 if [[ -n "${pacman_packages}" ]]; then
