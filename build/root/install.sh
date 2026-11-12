@@ -72,6 +72,26 @@ cp -f '/usr/lib/code-server/src/browser/media/favicon.svg' '/usr/lib/code-server
 
 cat <<'EOF' > /tmp/envvars_heredoc
 
+# source in utility functions, need process_env_var
+source utils.sh
+
+# Define environment variables to process
+# Format: "VAR_NAME:DEFAULT_VALUE:REQUIRED:MASK"
+env_vars=(
+	"CERT_PATH::false:false"
+	"CERT_KEY_PATH::false:false"
+	"SELF_SIGNED_CERT:no:false:false"
+	"BIND_CLOUD_NAME::false:false"
+	"ENABLE_STARTUP_SCRIPTS:no:false:false"
+	"STARTUP_SCRIPTS_MODE:wait:false:false"
+)
+
+# Process each environment variable
+for env_var in "${env_vars[@]}"; do
+	IFS=':' read -r var_name default_value required mask_value <<< "${env_var}"
+	process_env_var "${var_name}" "${default_value}" "${required}" "${mask_value}"
+done
+
 export PASSWORD=$(echo "${PASSWORD}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
 if [[ ! -z "${PASSWORD}" ]]; then
 	if [[ "${PASSWORD}" == "code-server" ]]; then
@@ -90,47 +110,6 @@ else
 	echo "[warn] PASSWORD not defined (via -e PASSWORD), using randomised password (password stored in '${WEBUI_PASS_file}')" | ts '%Y-%m-%d %H:%M:%.S'
 	export PASSWORD="$(cat ${WEBUI_PASS_file})"
 fi
-
-export CERT_PATH=$(echo "${CERT_PATH}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
-if [[ ! -z "${CERT_PATH}" ]]; then
-	echo "[info] CERT_PATH defined as '${CERT_PATH}'" | ts '%Y-%m-%d %H:%M:%.S'
-else
-	echo "[info] CERT_PATH not defined,(via -e CERT_PATH)" | ts '%Y-%m-%d %H:%M:%.S'
-	export CERT_PATH=""
-fi
-
-export CERT_KEY_PATH=$(echo "${CERT_KEY_PATH}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
-if [[ ! -z "${CERT_KEY_PATH}" ]]; then
-	echo "[info] CERT_KEY_PATH defined as '${CERT_KEY_PATH}'" | ts '%Y-%m-%d %H:%M:%.S'
-else
-	echo "[info] CERT_KEY_PATH not defined,(via -e CERT_KEY_PATH)" | ts '%Y-%m-%d %H:%M:%.S'
-	export CERT_KEY_PATH=""
-fi
-
-export SELF_SIGNED_CERT=$(echo "${SELF_SIGNED_CERT}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
-if [[ ! -z "${SELF_SIGNED_CERT}" ]]; then
-	echo "[info] SELF_SIGNED_CERT defined as '${SELF_SIGNED_CERT}'" | ts '%Y-%m-%d %H:%M:%.S'
-else
-	echo "[info] SELF_SIGNED_CERT not defined,(via -e SELF_SIGNED_CERT), defaulting to 'no'" | ts '%Y-%m-%d %H:%M:%.S'
-	export SELF_SIGNED_CERT="no"
-fi
-
-export BIND_CLOUD_NAME=$(echo "${BIND_CLOUD_NAME}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
-if [[ ! -z "${BIND_CLOUD_NAME}" ]]; then
-	echo "[info] BIND_CLOUD_NAME defined as '${BIND_CLOUD_NAME}'" | ts '%Y-%m-%d %H:%M:%.S'
-else
-	echo "[info] BIND_CLOUD_NAME not defined,(via -e BIND_CLOUD_NAME)" | ts '%Y-%m-%d %H:%M:%.S'
-	export BIND_CLOUD_NAME=""
-fi
-
-export ENABLE_STARTUP_SCRIPTS=$(echo "${ENABLE_STARTUP_SCRIPTS}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
-if [[ ! -z "${ENABLE_STARTUP_SCRIPTS}" ]]; then
-	echo "[info] ENABLE_STARTUP_SCRIPTS defined as '${ENABLE_STARTUP_SCRIPTS}'" | ts '%Y-%m-%d %H:%M:%.S'
-else
-	echo "[info] ENABLE_STARTUP_SCRIPTS not defined,(via -e ENABLE_STARTUP_SCRIPTS), defaulting to 'no'" | ts '%Y-%m-%d %H:%M:%.S'
-	export ENABLE_STARTUP_SCRIPTS="no"
-fi
-
 EOF
 
 # replace env vars placeholder string with contents of file (here doc)
@@ -141,35 +120,6 @@ sed -i '/# ENVVARS_PLACEHOLDER/{
 rm /tmp/envvars_heredoc
 
 cat <<'EOF' > /tmp/config_heredoc
-
-if [[ "${ENABLE_STARTUP_SCRIPTS}" == "yes" ]]; then
-
-	# define path to scripts
-	base_path="/config/code-server"
-	user_script_path="${base_path}/scripts"
-
-	mkdir -p "${user_script_path}"
-
-	# copy example startup script
-	# note slence stdout/stderr and ensure exit code 0 due to src file may not exist (symlink)
-	if [[ ! -f "${user_script_path}/example-startup-script.sh" ]]; then
-		cp "/home/nobody/example-startup-script.sh" "${user_script_path}/example-startup-script.sh" 2> /dev/null || true
-	fi
-
-	# find any scripts located in "${user_script_path}"
-	user_scripts=$(find "${user_script_path}" -maxdepth 1 -name '*sh' 2> '/dev/null' | xargs)
-
-	# loop over scripts, make executable and source
-	for i in ${user_scripts}; do
-		chmod +x "${i}"
-		echo "[info] Executing user script '${i}' in the background" | ts '%Y-%m-%d %H:%M:%.S'
-		source "${i}" &
-	done
-
-	# change ownership as we are running as root
-	chown -R nobody:users "${base_path}"
-
-fi
 
 # call symlink function from utils.sh
 symlink --src-path '/config/home' --dst-path '/home/nobody' --link-type 'softlink'
